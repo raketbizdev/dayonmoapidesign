@@ -1,0 +1,136 @@
+openapi: 3.0.0
+info:
+  title: Dayonmo API
+  description: API for Dayonmo application handling user management.
+  version: "1.0.0"
+servers:
+  - url: "https://api.dayonmo.com/"
+
+paths:
+  /:
+    get:
+      summary: Root endpoint
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Dayonmo API root."
+
+  /signup:
+    post:
+      summary: User signup
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserSignup"
+      responses:
+        "201":
+          description: User created successfully
+        "400":
+          description: Invalid request data
+        "409":
+          description: Email already in use
+        "500":
+          description: Server error
+
+  /signin:
+    post:
+      summary: User signin
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserSignin"
+      responses:
+        "200":
+          description: User signed in successfully
+        "400":
+          description: Invalid request data
+        "401":
+          description: Unauthorized - incorrect credentials
+        "500":
+          description: Server error
+
+  /forgot:
+    post:
+      summary: Forgot password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserEmail"
+      responses:
+        "200":
+          description: Password reset email sent
+        "404":
+          description: Email not found
+        "500":
+          description: Server error
+
+  /confirmation:
+    post:
+      summary: Confirm user email
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserEmail"
+      responses:
+        "200":
+          description: Email confirmed successfully
+        "404":
+          description: Email not found
+        "500":
+          description: Server error
+
+components:
+  schemas:
+    UserSignup:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+        password_confirm:
+          type: string
+          format: password
+      required:
+        - email
+        - password
+        - password_confirm
+
+    UserSignin:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          format: password
+      required:
+        - email
+        - password
+
+    UserEmail:
+      type: object
+      properties:
+        email:
+          type: string
+          format: email
+      required:
+        - email
