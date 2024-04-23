@@ -3,6 +3,11 @@ info:
   title: Dayonmo API
   description: API for Dayonmo application handling user management.
   version: "1.0.0"
+  contact:
+    name: Ruel Nopal
+    email: rakethost@gmail.com
+tags:
+  - name: tags
 servers:
   - url: "https://api.dayonmo.com/v1"
 
@@ -30,7 +35,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/UserSignup"
+              $ref: "#/components/schemas/Signup"
       responses:
         "201":
           description: User created successfully
@@ -96,7 +101,7 @@ paths:
 
 components:
   schemas:
-    UserSignup:
+    Signup:
       type: object
       properties:
         email:
