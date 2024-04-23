@@ -134,3 +134,6 @@ components:
           format: email
       required:
         - email
+security:
+  - ApiKey: []
+
