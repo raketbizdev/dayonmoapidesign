@@ -141,4 +141,3 @@ components:
         - email
 security:
   - ApiKey: []
-
